@@ -1,0 +1,34 @@
+[Unit]
+Description=RHEL Security Monitoring Agent with Gemini AI
+After=local-fs.target auditd.service network-online.target
+Wants=network-online.target
+RequiresMountsFor=/var/log /var/lib/security-monitor
+
+[Service]
+Type=simple
+User=root
+Group=root
+
+EnvironmentFile=/etc/security-monitor/security-monitor.env
+Environment=PYTHONUNBUFFERED=1
+
+ExecStart=/usr/bin/python3 /opt/security-monitor/security_monitor.py
+Restart=always
+RestartSec=10
+
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=full
+ProtectHome=no
+ReadWritePaths=/var/log /var/lib/security-monitor
+
+CPUQuota=10%
+MemoryMax=256M
+TasksMax=32
+LimitNOFILE=4096
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
