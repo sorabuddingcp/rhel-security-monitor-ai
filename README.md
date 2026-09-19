@@ -1,5 +1,5 @@
 # RHEL Security Monitor 2.0
-
+##AUTH##Technical Skills Linux####
 Lightweight RHEL 9/10 security monitoring agent with:
 
 - SELinux AVC/USER_AVC detection
